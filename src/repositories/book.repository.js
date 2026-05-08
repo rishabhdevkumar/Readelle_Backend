@@ -1,11 +1,19 @@
 const Book = require("../schemas/Book");
 
 const createBookRepository = async (data) => {
-    return await Book.create(data);
+    try {
+        return await Book.create(data);
+    } catch (error) {
+        throw error;
+    }
 };
 
 const getAllBooksRepository = async () => {
-    return await Book.find();
+    try {
+        return await Book.find();
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = {
