@@ -5,14 +5,14 @@ const {
 
 const createBook = async (req, res) => {
     try {
-        const newBook = await createBookService(
-            req.body
-        );
+        const newBook = await createBookService(req.body);
 
         res.status(201).json({
             success: true,
             message: "Book created successfully",
-            data: newBook,
+            data: {
+                book: newBook,
+            },
             error: {},
         });
 
@@ -33,7 +33,15 @@ const getAllBooks = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Books fetched successfully",
-            data: books,
+            data: {
+                books,
+                pagination: {
+                    total: books.length,
+                    page: 1,
+                    limit: 10,
+                    totalPages: Math.ceil(books.length / 10),
+                },
+            },
             error: {},
         });
 
