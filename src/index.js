@@ -4,9 +4,17 @@ const connectDB = require('./config/db.config');
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/ping', (req, res) => {
     res.send('pong');
 });
+
+
+const userRouter = require("./routes/user.routes");
+app.use("/api/users",userRouter);
+
+
 
 app.listen(serverConfig.PORT, async () => {
     await connectDB();
