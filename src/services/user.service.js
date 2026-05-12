@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.registerUser=async(data)=>{
-    try{
+    
         const existingUser = await userRepository.findUserByEmail(data.email);
 
         if(existingUser){
@@ -15,22 +15,15 @@ exports.registerUser=async(data)=>{
 
         const user = await userRepository.createUser(data);
         return user;
+   
+};
 
-    }catch(error){
-        throw new Error(`User registration failed : ${error.message}`);
-    }
-}
-
-exports.findUserByEmail=async(email)=>{
-    try{
+exports.findUserByEmail=async(email)=>{  
         return await userRepository.findUserByEmail(email);
-    }catch(error){
-        throw new Error(`User not exist : ${error.message}`);
-    }
 }
 
 exports.loginUser = async(data)=>{
-    try{
+    
         const {email,password} = data;
 
         if(!email || !password){
@@ -67,7 +60,4 @@ exports.loginUser = async(data)=>{
         token
       }
     
-    }catch(e){
-        throw new Error(`${e.message}`);
-    }
-}
+};
