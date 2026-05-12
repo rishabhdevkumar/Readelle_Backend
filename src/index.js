@@ -1,8 +1,12 @@
 const express = require('express');
 const serverConfig = require('./config/server.config');
 const connectDB = require('./config/db.config');
-const userRouter = require("./routes/user.routes");
+const bookRoutes = require("./routes/book.routes");
+
 const app = express();
+app.use(express.json());
+
+app.use("/api/books", bookRoutes);
 
 app.use(express.json());
 
