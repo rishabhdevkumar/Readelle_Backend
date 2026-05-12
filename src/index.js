@@ -6,13 +6,15 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/ping', (req, res) => {
-    res.send('pong');
-});
 
 
 app.use("/api/users",userRouter);
 
+
+
+app.get('/ping', (req, res) => {
+    res.send('pong');
+});
 
 app.listen(serverConfig.PORT, async () => {
     await connectDB();
