@@ -31,16 +31,6 @@ exports.registerUser = async(req, res) => {
     }
 }
 
-exports.findUserByEmail=async(req,res)=>{
-    try{
-        const user = await userService.findUserByEmail(req.body.email);
-        res.json(user);
-    }catch(error){
-        res.json({
-            message:error.message
-        })
-    }
-}
 
 exports.loginUser = async(req,res)=>{
     try{
