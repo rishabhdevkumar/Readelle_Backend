@@ -8,6 +8,14 @@ app.use(express.json());
 
 app.use("/api/books", bookRoutes);
 
+app.use(express.json());
+
+
+
+app.use("/api/users",userRouter);
+
+
+
 app.get('/ping', (req, res) => {
     res.send('pong');
 });
