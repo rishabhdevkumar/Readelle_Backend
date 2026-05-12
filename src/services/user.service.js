@@ -20,13 +20,15 @@ exports.registerUser=async(data)=>{
 
 exports.loginUser = async(data)=>{
     
-        const {email,password} = data;
+        const {email,password} = data;// reveals hidden chars
 
         if(!email || !password){
            throw new Error("email and password required");
         }
 
         const user  = await userRepository.findUserByEmail(email);
+
+
 
         if(!user){
             throw new Error("Invalid credentials");

@@ -5,5 +5,6 @@ exports.createUser=async(data)=>{
 };
 
 exports.findUserByEmail=async(email)=>{
-        return await User.findOne({email});
+        const user = await User.findOne({email});
+        return user;
 };

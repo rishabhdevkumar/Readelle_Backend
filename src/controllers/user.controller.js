@@ -37,7 +37,7 @@ exports.loginUser = async(req,res)=>{
 
         const data = await userService.loginUser(req.body);
 
-        res.status(201).json({
+        res.status(200).json({
             success:true,
             message:"Login successfully",
             data:{
@@ -53,7 +53,7 @@ exports.loginUser = async(req,res)=>{
         });
 
     }catch(error){
-        res.status(statusCode||500).json({
+        res.status(error.statusCode||500).json({
             success:false,
             message:"Invalid email or password",
             data:{},
