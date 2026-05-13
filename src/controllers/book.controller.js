@@ -24,14 +24,15 @@ const createBook = async (req, res) => {
             });
         }
 
+        // Look inside your catch block under createBook:
         if (error.code === 11000) {
             return res.status(409).json({
-                success: false,
-                message: "A book with this title already exists",
-                data: null,
-                error: error.keyValue,
+            success: false,
+            message: "Duplicate key entry error. This book or unique sequence already exists.",
+            data: null,
+            error: error.keyValue,
             });
-        }
+        }  
 
         return res.status(500).json({
             success: false,
