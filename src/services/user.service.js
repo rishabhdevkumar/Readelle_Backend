@@ -59,3 +59,14 @@ exports.loginUser = async(data)=>{
       }
     
 };
+
+
+exports.getMe = async(userId) =>{
+    const  user  = await userRepository.getMe(userId);
+    
+    if(!user){
+        throw new Error("user not found");
+    }
+
+    return user;
+} 

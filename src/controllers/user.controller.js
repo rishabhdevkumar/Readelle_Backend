@@ -64,3 +64,32 @@ exports.loginUser = async(req,res)=>{
         })
     }
 }
+
+
+exports.getMe = async(req,res)=>{
+
+    try{
+        const user = await userService.getMe(req.user.id);
+
+        res.status(200).json({
+            success:true,
+            message:"user data fetched successfully",
+            data:user,
+            error:{}
+        })
+
+    }catch(error){
+
+        res.status(500).json({
+            success:false,
+            message:error.message || "user not found",
+            data:{},
+            error:{
+                "statusCode":error.statusCode||404,
+                "isOperational":true
+            }
+        })
+
+    }
+
+}
