@@ -40,6 +40,33 @@ exports.auth = (req,res,next)=>{
 }
 
 
+
+
+exports.authorizeRole = (allowedRole)=>{
+    return(req,res,next)=>{
+        try{
+            if(!req.user){
+                return res.status(401).json({
+                    message:"User not authenticated"
+                });
+            }
+
+            if(!allowedRole.includes(req.user.role)){
+                res.status(403).json({
+                    message:"Access denied"
+                })
+            }
+
+            next();
+        }catch(error){
+        res.status(500).json({
+            message:error.message
+        })
+        }
+    }
+}
+
+
 exports.validateRegister=(req,res,next)=>{
 
     try{
