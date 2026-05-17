@@ -8,7 +8,10 @@ const getAllBooksRepository = async (page, limit) => {
     const skip = (page - 1) * limit;
 
     const [books, total] = await Promise.all([
-        Book.find().skip(skip).limit(limit),
+        Book.find()
+            .skip(skip)
+            .limit(limit),
+
         Book.countDocuments(),
     ]);
 
@@ -16,7 +19,8 @@ const getAllBooksRepository = async (page, limit) => {
 };
 
 const getBookByIdRepository = async (bookId) => {
-    return await Book.findById(bookId);
+    return await Book.findById(bookId)
+        .populate("category_id");
 };
 
 const updateBookRepository = async (bookId, data) => {
@@ -31,7 +35,8 @@ const updateBookRepository = async (bookId, data) => {
 };
 
 const deleteBookRepository = async (bookId) => {
-    return await Book.findByIdAndDelete(bookId);
+    return await Book.findByIdAndDelete(bookId)
+        .populate("category_id");
 };
 
 module.exports = {

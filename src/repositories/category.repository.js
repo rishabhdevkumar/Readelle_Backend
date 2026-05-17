@@ -1,4 +1,5 @@
-const Category = require("../schemas/Categories");
+const Category = require("../schemas/Category");
+const Book = require("../schemas/Book");
 
 const createCategoryRepository = async (data) => {
     return await Category.create(data);
@@ -15,8 +16,21 @@ const updateCategoryRepository = async (id, data) => {
     });
 };
 
+const deleteCategoryRepository = async (categoryId) => {
+    return await Category.findByIdAndDelete(categoryId);
+};
+
+const checkBooksExistRepository = async (categoryId) => {
+    return await Book.findOne({
+        category_id: categoryId,
+    });
+};
+
+
 module.exports = {
     createCategoryRepository,
     getAllCategoriesRepository,
     updateCategoryRepository,
+    deleteCategoryRepository,
+    checkBooksExistRepository,
 };

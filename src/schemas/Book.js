@@ -6,6 +6,11 @@ const bookSchema = new mongoose.Schema(
         _id: {
             type: String,
         },
+        category_id: {
+            type: String,
+            ref: "Category",
+            required: [true, "Category is required"],
+        },
         title: {
             type: String,
             required: [true, "Title is required"],

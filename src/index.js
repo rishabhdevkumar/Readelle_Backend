@@ -3,7 +3,7 @@ const serverConfig = require('./config/server.config');
 const connectDB = require('./config/db.config');
 const bookRoutes = require("./routes/book.routes");
 const userRouter = require("./routes/user.routes");
-const categoryRouter = require("./routes/categories.routes");
+const categoryRouter = require("./routes/category.routes");
 
 const app = express();
 
@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/users",userRouter);
-app.use("/api/categories", categoryRouter);
+app.use("/api/category", categoryRouter);
 app.use("/api/books", bookRoutes);
 
 
