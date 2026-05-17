@@ -17,16 +17,13 @@ const updateCategoryRepository = async (id, data) => {
 };
 
 const deleteCategoryRepository = async (categoryId) => {
+    return await Category.findByIdAndDelete(categoryId);
+};
 
-    const existingBook = await Book.findOne({
+const checkBooksExistRepository = async (categoryId) => {
+    return await Book.findOne({
         category_id: categoryId,
     });
-
-    if (existingBook) {
-        return null;
-    }
-
-    return await Category.findByIdAndDelete(categoryId);
 };
 
 
@@ -34,5 +31,6 @@ module.exports = {
     createCategoryRepository,
     getAllCategoriesRepository,
     updateCategoryRepository,
-    deleteCategoryRepository
+    deleteCategoryRepository,
+    checkBooksExistRepository,
 };

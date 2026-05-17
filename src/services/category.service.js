@@ -1,5 +1,5 @@
 const { createCategoryRepository, getAllCategoriesRepository, updateCategoryRepository, deleteCategoryRepository,
-} = require("../repositories/category.repository");
+    checkBooksExistRepository } = require("../repositories/category.repository");
 
 const createCategoryService = async (data) => {
     return await createCategoryRepository(data);
@@ -14,6 +14,14 @@ const updateCategoryService = async (id, data) => {
 };
 
 const deleteCategoryService = async (categoryId) => {
+
+    const existingBook = await checkBooksExistRepository(categoryId);
+    if (existingBook) {
+        throw new Error(
+            "Category cannot be deleted because books exist in this category"
+        );
+    }
+
     return await deleteCategoryRepository(categoryId);
 };
 
