@@ -4,9 +4,15 @@ const connectDB = require('./config/db.config');
 const bookRoutes = require("./routes/book.routes");
 const userRouter = require("./routes/user.routes");
 const categoryRouter = require("./routes/categories.routes");
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors({
+    origin: '*',
+    methods: 'GET,POST,PUT,PATCH,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+}));
 
 app.use(express.json());
 
