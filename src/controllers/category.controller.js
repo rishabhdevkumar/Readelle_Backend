@@ -73,9 +73,10 @@ const deleteCategory = async (req, res) => {
             await deleteCategoryService(categoryId);
 
         if (!deletedCategory) {
-            return res.status(404).json({
+            return res.status(400).json({
                 success: false,
-                message: "Category not found",
+                message:
+                    "Category cannot be deleted because books exist in this category",
                 data: null,
                 error: null,
             });
@@ -90,7 +91,7 @@ const deleteCategory = async (req, res) => {
 
     } catch (error) {
 
-        return res.status(400).json({
+        return res.status(500).json({
             success: false,
             message: error.message,
             data: null,

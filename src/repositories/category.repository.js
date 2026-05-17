@@ -19,13 +19,11 @@ const updateCategoryRepository = async (id, data) => {
 const deleteCategoryRepository = async (categoryId) => {
 
     const existingBook = await Book.findOne({
-        category_id: categoryId
+        category_id: categoryId,
     });
 
     if (existingBook) {
-        throw new Error(
-            "Category cannot be deleted because books exist in this category"
-        );
+        return null;
     }
 
     return await Category.findByIdAndDelete(categoryId);
