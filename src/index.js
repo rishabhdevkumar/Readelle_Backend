@@ -4,6 +4,7 @@ const connectDB = require('./config/db.config');
 const bookRoutes = require("./routes/book.routes");
 const userRouter = require("./routes/user.routes");
 const categoryRouter = require("./routes/category.routes");
+const cartRouter = require("./routes/cart.routes");
 const cors = require('cors');
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users",userRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/books", bookRoutes);
+app.use("/api/cart",cartRouter);
 
 
 app.get('/ping', (req, res) => {

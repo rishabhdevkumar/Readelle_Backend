@@ -1,4 +1,5 @@
 const userRepository = require("../repositories/user.repository");
+const cartRepository = require("../repositories/cart.repository");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -14,6 +15,9 @@ exports.registerUser=async(data)=>{
         data.password = hashedPassword;
 
         const user = await userRepository.createUser(data);
+
+        const cart = await cartRepository.createCart(user._id);
+        
         return user;
    
 };
