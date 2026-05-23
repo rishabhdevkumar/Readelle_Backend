@@ -7,14 +7,14 @@ const wishlistSchema = new mongoose.Schema(
             type: String,
         },
 
-        user_id: {
+        user: {
             type: String,
             ref: "User",
             required: [true, "User id is required"],
             trim: true,
         },
 
-        book_id: {
+        book: {
             type: String,
             ref: "Book",
             required: [true, "Book id is required"],
@@ -24,8 +24,8 @@ const wishlistSchema = new mongoose.Schema(
         status: {
             type: String,
             enum: {
-                values: ["TO_READ", "READING", "COMPLETE"],
-                message: "Status must be TO_READ, READING or COMPLETE",
+                values: ["TO_READ", "READING", "COMPLETED"],
+                message: "Status must be TO_READ, READING or COMPLETED",
             },
             default: "TO_READ",
             uppercase: true,
