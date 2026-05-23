@@ -1,6 +1,6 @@
 const cartRepo = require("../repositories/cart.repository");
 const cartItemRepo = require("../repositories/cartItem.repository");
-
+const bookRepo = require("../repositories/book.repository");
 
 exports.getCart = async(userId)=>{
     let cart = await cartRepo.findCartByUser(userId);
@@ -27,7 +27,7 @@ exports.getCart = async(userId)=>{
         return{
             cartItemId:item._id,
             book:item.bookId,
-            quatity:item.quatity,
+            quantity:item.quantity,
             subtotal
         }
     })
@@ -40,11 +40,22 @@ exports.getCart = async(userId)=>{
         totalAmount
     }
 }
-
+ 
 
 exports.addToCart = async(userId,data)=>{
 
     const {bookId,quantity = 1}=data;
+
+    if(quantity<1){
+        throw new Error("Qunatity must be at least 1");
+    }
+
+
+    const book =await bookRepo.findBookByIdRepository(bookId);
+
+    if(!book){
+        throw new Error("Book not found");
+    }
 
     let cart  = await cartRepo.findCartByUser(userId);
 
@@ -65,11 +76,23 @@ exports.addToCart = async(userId,data)=>{
         cartId: cart._id,
         bookId,
         quantity
-    })
+    }) 
 }
 
 
 exports.updateCartItem = async(userId,cartItemId,quantity)=>{
+
+    const user = await cartRepo.findCartByUser(userId);
+
+    const item = await cartItemRepo.findItem(cartItemId);
+
+    if(!item){
+        throw new Error("cart item not found");
+    }
+
+    if(item.cartId !== cart._id){
+        throw new Error("Unauthorized access");
+    }
 
     if(quantity === 0){
         await cartItemRepo.deleteItem(cartItemId);
@@ -83,5 +106,17 @@ exports.updateCartItem = async(userId,cartItemId,quantity)=>{
 };
 
 exports.removeCartItem = async(userId,cartItemId)=>{
+     const cart = await cartRepo.findCartByUser(userId);
+
+    const item = await cartItemRepo.findById(cartItemId);
+
+    if(!item){
+        throw new Error("Cart item not found");
+    }
+
+    if(item.cartId !== cart._id){
+        throw new Error("Unauthorized access");
+    }
+
     await cartItemRepo.deleteItem(cartItemId);
 }
