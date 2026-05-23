@@ -14,7 +14,7 @@ const {
 const toggleWishlistService = async (userId, data) => {
 
     // Check book exists
-    const book = await findBookByIdRepository(data.book_id);
+    const book = await findBookByIdRepository(data.book);
 
     if (!book) {
         throw new Error("Book not found");
@@ -22,7 +22,7 @@ const toggleWishlistService = async (userId, data) => {
 
     const existingWishlist = await findWishlistRepository(
         userId,
-        data.book_id
+        data.book
     );
 
     if (existingWishlist) {
@@ -37,8 +37,8 @@ const toggleWishlistService = async (userId, data) => {
     }
 
     const wishlist = await toggleWishlistRepository({
-        user_id: userId,
-        book_id: data.book_id,
+        user: userId,
+        book: data.book,
     });
 
     return {

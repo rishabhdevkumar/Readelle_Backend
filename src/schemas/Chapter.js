@@ -8,7 +8,7 @@ const chapterSchema = new mongoose.Schema(
             type: String,
         },
 
-        book_id: {
+        book: {
             type: String,
             ref: "Book",
             required: [true, "Book id is required"],

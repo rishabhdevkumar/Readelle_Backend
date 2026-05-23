@@ -7,15 +7,15 @@ const toggleWishlistRepository = async (data) => {
 
 const findWishlistRepository = async (userId, bookId) => {
     return await Wishlist.findOne({
-        user_id: userId,
-        book_id: bookId,
+        user: userId,
+        book: bookId,
     });
 };
 
 const getAllWishlistRepository = async (userId) => {
     return await Wishlist.find({
-        user_id: userId,
-    }).populate("book_id");
+        user: userId,
+    }).populate("book");
 };
 
 const updateWishlistRepository = async (wishlistId, data) => {
