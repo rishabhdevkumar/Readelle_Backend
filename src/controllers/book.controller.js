@@ -8,7 +8,7 @@ const {
 
 const createBook = async (req, res) => {
     try {
-        const newBook = await createBookService(req.body);
+        const newBook = await createBookService(req.body, req.files);
 
         return res.status(201).json({
             success: true,
@@ -110,8 +110,7 @@ const getBookById = async (req, res) => {
 const updateBook = async (req, res) => {
     try {
         const { bookId } = req.params;
-
-        const updatedBook = await updateBookService(bookId, req.body);
+        const updatedBook = await updateBookService(bookId, req.body, req.files);
 
         if (!updatedBook) {
             return res.status(404).json({

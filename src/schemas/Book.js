@@ -47,7 +47,9 @@ const bookSchema = new mongoose.Schema(
             maxlength: [1000, "Description cannot exceed 1000 characters"],
         },
         cover_image: { type: String, trim: true },
+        cover_image_public_id: { type: String, trim: true },
         file_url: { type: String, trim: true },
+        file_public_id: { type: String, trim: true },
     },
     {
         timestamps: true,

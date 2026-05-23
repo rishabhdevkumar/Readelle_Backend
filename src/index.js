@@ -6,6 +6,7 @@ const userRouter = require("./routes/user.routes");
 const categoryRouter = require("./routes/category.routes");
 const wishlistRoutes = require("./routes/wishlist.routes");
 const cors = require("cors");
+const cartRouter = require("./routes/cart.routes");
 
 const app = express();
 
@@ -16,11 +17,13 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/books", bookRoutes);
 app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/cart",cartRouter);
 
 
 app.get('/ping', (req, res) => {
