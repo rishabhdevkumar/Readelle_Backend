@@ -5,6 +5,7 @@ const bookRoutes = require("./routes/book.routes");
 const userRouter = require("./routes/user.routes");
 const categoryRouter = require("./routes/category.routes");
 const wishlistRoutes = require("./routes/wishlist.routes");
+const chapterRouter = require("./routes/chapter.router");
 const cors = require("cors");
 const cartRouter = require("./routes/cart.routes");
 
@@ -24,6 +25,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/books", bookRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/cart",cartRouter);
+app.use("/api/chapters", chapterRouter);
 
 
 app.get('/ping', (req, res) => {

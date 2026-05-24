@@ -96,10 +96,9 @@ const deleteBookService = async (bookId) => {
 };
 
 module.exports = {
-    createBookRepository,
-    getAllBooksRepository,
-    getBookByIdRepository,
-    updateBookRepository,
-    deleteBookRepository,
-    findBookByIdRepository,
+    createBookService,
+    getAllBooksService,
+    getBookByIdService,
+    updateBookService,
+    deleteBookService,
 };
