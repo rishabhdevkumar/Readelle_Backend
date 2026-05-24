@@ -82,9 +82,9 @@ exports.addToCart = async(userId,data)=>{
 
 exports.updateCartItem = async(userId,cartItemId,quantity)=>{
 
-    const user = await cartRepo.findCartByUser(userId);
+    const cart = await cartRepo.findCartByUser(userId);
 
-    const item = await cartItemRepo.findItem(cartItemId);
+    const item = await cartItemRepo.findById(cartItemId);
 
     if(!item){
         throw new Error("cart item not found");

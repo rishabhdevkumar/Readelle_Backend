@@ -10,6 +10,13 @@ exports.findItem = async(cartId,bookId)=>{
     return await CartItem.findOne({cartId,bookId});
 };
 
+
+exports.findById = async(cartItemId)=>{
+    return await CartItem.findById(
+        cartItemId
+    );
+};
+
 exports.getCartItems = async(cartId)=>{
     return await CartItem.find({cartId}).populate("bookId");
 };
