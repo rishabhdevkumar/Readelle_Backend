@@ -8,6 +8,7 @@ const wishlistRoutes = require("./routes/wishlist.routes");
 const chapterRouter = require("./routes/chapter.router");
 const cors = require("cors");
 const cartRouter = require("./routes/cart.routes");
+const notesRouter = require("./routes/notes.routes");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/books", bookRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/cart",cartRouter);
 app.use("/api/chapters", chapterRouter);
+app.use("/api/notes", notesRouter);
 
 
 app.get('/ping', (req, res) => {
