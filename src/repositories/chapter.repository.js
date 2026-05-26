@@ -19,8 +19,21 @@ const getChaptersByBookRepository = async (bookId) => {
         .select("chapter_title chapter_number context");
 };
 
+const updateChapterRepository = async (chapterId, data) => {
+
+    return await Chapter.findByIdAndUpdate(
+        chapterId,
+        data,
+        {
+            returnDocument: "after",
+            runValidators: true,
+        }
+    );
+};
+
 module.exports = {
     addChapterRepository,
     findChapterByIdRepository,
     getChaptersByBookRepository,
+    updateChapterRepository
 };

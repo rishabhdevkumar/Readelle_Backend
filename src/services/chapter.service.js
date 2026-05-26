@@ -2,6 +2,7 @@ const {
     addChapterRepository,
     findChapterByIdRepository,
     getChaptersByBookRepository,
+    updateChapterRepository
 } = require("../repositories/chapter.repository");
 
 const {
@@ -49,8 +50,28 @@ const getChaptersByBookService = async (bookId) => {
     return chapters;
 };
 
+const updateChapterService = async (
+    chapterId,
+    data
+) => {
+
+    const chapter = await findChapterByIdRepository(
+        chapterId
+    );
+
+    if (!chapter) {
+        throw new Error("Chapter not found");
+    }
+
+    return await updateChapterRepository(
+        chapterId,
+        data
+    );
+};
+
 module.exports = {
     addChapterService,
     getChapterByIdService,
     getChaptersByBookService,
+    updateChapterService,
 };

@@ -2,6 +2,7 @@ const {
     addChapterService,
     getChapterByIdService,
     getChaptersByBookService,
+    updateChapterService,
 } = require("../services/chapter.service");
 
 const addChapter = async (req, res) => {
@@ -80,8 +81,36 @@ const getChaptersByBook = async (req, res) => {
     }
 };
 
+const updateChapter = async (req, res) => {
+
+    try {
+
+        const result = await updateChapterService(
+            req.params.chapterId,
+            req.body
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Chapter updated successfully",
+            data: result,
+            error: {},
+        });
+
+    } catch (error) {
+
+        return res.status(404).json({
+            success: false,
+            message: error.message,
+            data: {},
+            error: error,
+        });
+    }
+};
+
 module.exports = {
     addChapter,
     getChapterById,
     getChaptersByBook,
+    updateChapter,
 };
