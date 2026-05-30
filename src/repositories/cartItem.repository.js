@@ -1,6 +1,4 @@
-const cartItem = require("../schemas/cartItem");
-const CartItem  = require("../schemas/cartItem");
-
+const CartItem  = require("../schemas/CartItem");
 
 exports.createItem =async(data)=>{
     return await CartItem.create(data);
