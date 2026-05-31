@@ -1,13 +1,17 @@
 const mongoose = require("mongoose");
+const generateCustomId = require("../utils/idGenerator");
 
 const orderItemSchema = new mongoose.Schema({
+    _id:{
+        type:String
+    },
     orderId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"Order",
         required:true
     },
     bookId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"Book",
         required:true
     },
@@ -21,7 +25,7 @@ const orderItemSchema = new mongoose.Schema({
     }
 });
 
-orderItemSchema.pre = ("save",async function(){
+orderItemSchema.pre("save",async function(){
 
     if(this.isNew){
         let typeCode = "IT";

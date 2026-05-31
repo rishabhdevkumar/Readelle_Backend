@@ -9,7 +9,7 @@ exports.findById=async(orderId)=>{
 };
 
 exports.findByUser= async(userId)=>{
-    return await Order.find({user:userId}).sort({createdAt:-1});
+    return await Order.find({userId:userId}).sort({createdAt:-1});
 };
 
 exports.findOne =async(filter)=>{

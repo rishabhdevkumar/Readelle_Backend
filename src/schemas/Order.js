@@ -2,8 +2,11 @@ const mongoose = require("mongoose");
 const generateCustomId = require("../utils/idGenerator");
 
 const orderSchema = new mongoose.Schema({
+    _id:{
+        type:String
+    },
     userId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"User",
         required:true
     },
@@ -48,7 +51,7 @@ const orderSchema = new mongoose.Schema({
 },{timestamps:true}
 );
 
-orderSchema.pre=("save",async function(){
+orderSchema.pre("save",async function(){
     if(this.isNew){
         let statusCode="PD";
 
@@ -56,12 +59,12 @@ orderSchema.pre=("save",async function(){
         if(this.status === "DELIVERED") statusCode = "DL";
         if(this.status === "CANCELLED") statusCode = "CN";
 
-        this._id = generateCustomId(
+        this._id = await generateCustomId(
             "order_sequence_id",
             "ORD",
             statusCode,
             3
-        )
+        );
 
     }
 });

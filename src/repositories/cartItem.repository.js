@@ -30,3 +30,7 @@ exports.updateQuantity = async(cartItemId,quantity)=>{
 exports.deleteItem =async(cartItemId)=>{
     return await cartItem.findByIdAndDelete(cartItemId);
 };
+
+exports.deleteByCartId = async(cartId) => {
+    return await CartItem.deleteMany({ cartId });
+};
