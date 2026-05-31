@@ -20,6 +20,6 @@ exports.updateStatus = async(orderId,status)=>{
     return await Order.findByIdAndUpdate(
          orderId,
         {status},
-        {new:true}
+        {returnDocument:"after"}
     )
 };
