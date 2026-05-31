@@ -1,6 +1,4 @@
-const cartItem = require("../schemas/cartItem");
-const CartItem  = require("../schemas/cartItem");
-
+const CartItem  = require("../schemas/CartItem");
 
 exports.createItem =async(data)=>{
     return await CartItem.create(data);
@@ -31,4 +29,8 @@ exports.updateQuantity = async(cartItemId,quantity)=>{
 
 exports.deleteItem =async(cartItemId)=>{
     return await cartItem.findByIdAndDelete(cartItemId);
+};
+
+exports.deleteByCartId = async(cartId) => {
+    return await CartItem.deleteMany({ cartId });
 };

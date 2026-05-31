@@ -10,7 +10,8 @@ const cors = require("cors");
 const cartRouter = require("./routes/cart.routes");
 const notesRouter = require("./routes/notes.routes");
 const highlightRouter = require("./routes/highlight.routes");
-const progressRouter = require("./routes/progress.routes")
+const orderRouter = require("./routes/order.routes");
+const progressRouter = require("./routes/progress.routes");
 const bookmarkRouter = require("./routes/bookmark.routes");
 
 const app = express();
@@ -32,6 +33,7 @@ app.use("/api/cart",cartRouter);
 app.use("/api/chapters", chapterRouter);
 app.use("/api/notes", notesRouter);
 app.use("/api/highlights", highlightRouter);
+app.use("/api/orders", orderRouter);
 app.use("/api/progress", progressRouter);
 app.use("/api/bookmarks", bookmarkRouter);
 

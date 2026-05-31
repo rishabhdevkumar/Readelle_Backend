@@ -1,0 +1,12 @@
+const express = require("express");
+const router =  express.Router();
+const orderController = require("../controllers/order.controller");
+const {auth,authorizeRole} = require("../middlewares/auth.middleware");
+
+router.post("/",auth,orderController.createOrder);
+router.get("/",auth,orderController.getMyOrders);
+router.get("/:orderId",auth,orderController.getOrderById);
+router.put("/:orderId/status",auth,authorizeRole(["admin","seller"]),orderController.updateStatus);
+router.put("/:orderId/cancel",auth,orderController.cancelOrder);
+
+module.exports = router;
