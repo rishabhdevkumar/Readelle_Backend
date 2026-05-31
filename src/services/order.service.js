@@ -5,6 +5,12 @@ const cartItemRepo = require("../repositories/cartItem.repository");
 
 exports.createOrder = async(userId,data)=>{
 
+    if (!data || !data.shippingAddress) {
+        const error = new Error("Shipping address is required");
+        error.statusCode = 400;
+        throw error;
+    }
+
     const cart = await cartRepo.findCartByUser(userId);
 
      if (!cart) {
@@ -91,6 +97,8 @@ exports.getOrderById = async(orderId,userId)=>{
 
 exports.updateStatus = async(orderId,status)=>{
 
+    const normalizedStatus = String(status || "").trim().toUpperCase();
+
     const validstatus=[
         "PENDING",
         "CONFIRMED",
@@ -98,7 +106,7 @@ exports.updateStatus = async(orderId,status)=>{
         "DELIVERED"
     ];
 
-    if(!validstatus.includes(status)){
+    if(!validstatus.includes(normalizedStatus)){
         throw new Error("Invalid status");
     }
 
@@ -108,7 +116,7 @@ exports.updateStatus = async(orderId,status)=>{
         throw new Error("Order not found");
     }
 
-    return await orderRepo.updateStatus(orderId,status);
+    return await orderRepo.updateStatus(orderId,normalizedStatus);
 
 };
 

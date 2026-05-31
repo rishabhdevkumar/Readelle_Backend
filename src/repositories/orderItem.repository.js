@@ -9,7 +9,7 @@ exports.findById = async(orderItemId)=>{
 };
 
 exports.findByOrder = async(orderId)=>{
-    return await OrderItem.find({order:orderId}).populate("book");
+    return await OrderItem.find({orderId}).populate("bookId");
 };  
 
 
