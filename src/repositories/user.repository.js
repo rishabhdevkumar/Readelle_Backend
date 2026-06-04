@@ -1,18 +1,25 @@
 const User = require("../schemas/User");
 
-exports.createUser=async(data)=>{
-         return await User.create(data);
+exports.createUser = async (data) => {
+    return await User.create(data);
 };
 
-exports.findUserByEmail=async(email)=>{
-        const user = await User.findOne({email});
-        return user;
+exports.findUserByEmail = async (email) => {
+    return await User.findOne({ email });
 };
 
+exports.getMe = async (userId) => {
+    return await User.findById(userId).select("-password");
+};
 
-exports.getMe = async(userId)=>{
-        const user = await User
-        .findById(userId)
-        .select("-password");
-        return user;
-}
+exports.getAllUsers = async () => {
+    return await User.find({}).select("-password");
+};
+
+exports.updateUser = async (userId, updateData) => {
+    return await User.findByIdAndUpdate(userId, updateData, { new: true }).select("-password");
+};
+
+exports.deleteUser = async (userId) => {
+    return await User.findByIdAndDelete(userId);
+};

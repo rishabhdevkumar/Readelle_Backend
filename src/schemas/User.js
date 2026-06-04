@@ -18,8 +18,8 @@ const userSchema = new mongoose.Schema(
             required: [true, "Email is required"],
             unique: true,
             trim: true,
-             minlength: [5, "Email must be at least 5 characters"],
-             maxlength: [50, "Email cannot exceed 50 characters"]
+            minlength: [5, "Email must be at least 5 characters"],
+            maxlength: [50, "Email cannot exceed 50 characters"]
         },
         password: {
             type: String,
@@ -30,7 +30,6 @@ const userSchema = new mongoose.Schema(
             type: Number,
             required: [true, "Phone number is required"],
             match: [/^[0-9]{10}$/, "Phone number must be exactly 10 digits"]
-    
         },
         role: {
             type: String,
@@ -39,6 +38,14 @@ const userSchema = new mongoose.Schema(
                 message: "Role is not valid",
             },
             default: "user",
+        },
+        status: {
+            type: String,
+            enum: {
+                values: ["Active", "Inactive", "Suspended"],
+                message: "Status is not valid",
+            },
+            default: "Active",
         },
     },
     {
