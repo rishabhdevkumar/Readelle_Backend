@@ -5,6 +5,7 @@ const {auth,authorizeRole} = require("../middlewares/auth.middleware");
 
 router.post("/",auth,orderController.createOrder);
 router.get("/",auth,orderController.getMyOrders);
+router.get("/all",auth,authorizeRole(["admin"]),orderController.getAllOrders);
 router.get("/:orderId",auth,orderController.getOrderById);
 router.put("/:orderId/status",auth,authorizeRole(["admin","seller"]),orderController.updateStatus);
 router.put("/:orderId/cancel",auth,orderController.cancelOrder);

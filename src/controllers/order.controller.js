@@ -25,6 +25,32 @@ exports.createOrder = async(req,res)=>{
     }
 };
 
+// Add this new controller function
+exports.getAllOrders = async (req, res) => {
+    try {
+        const data = await orderService.getAllOrders();
+
+        res.status(200).json({
+            success: true,
+            message: "All orders fetched successfully",
+            data,
+            error: {}
+        });
+    } catch (error) {
+        console.error("Get All Orders Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: error.message || "Failed to fetch orders",
+            data: {},
+            error: {
+                statusCode: 500,
+                isOperational: false
+            }
+        });
+    }
+};
+
 exports.getMyOrders = async(req,res)=>{
     try{
         const data = await orderService.getMyOrders(req.user.id);
