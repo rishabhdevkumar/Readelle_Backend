@@ -76,6 +76,11 @@ exports.getMyOrders=async(userId)=>{
     return order;
 };
 
+// Add this new service
+exports.getAllOrders = async () => {
+    return await orderRepo.findAllOrders();
+};
+
 exports.getOrderById = async(orderId,userId)=>{
 
     const order = await orderRepo.findOne({

@@ -23,3 +23,10 @@ exports.updateStatus = async(orderId,status)=>{
         {returnDocument:"after"}
     )
 };
+
+exports.findAllOrders = async () => {
+    return await Order.find({})
+        .populate("userId", "name email")
+        .sort({ createdAt: -1 })
+        .lean();
+};
