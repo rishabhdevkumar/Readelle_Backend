@@ -9,5 +9,6 @@ router.get("/all",auth,authorizeRole(["admin"]),orderController.getAllOrders);
 router.get("/:orderId",auth,orderController.getOrderById);
 router.put("/:orderId/status",auth,authorizeRole(["admin","seller"]),orderController.updateStatus);
 router.put("/:orderId/cancel",auth,orderController.cancelOrder);
+router.delete("/:orderId",auth,authorizeRole(["admin"]),orderController.deleteOrder);
 
 module.exports = router;

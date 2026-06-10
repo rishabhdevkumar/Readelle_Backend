@@ -151,3 +151,13 @@ exports.cancelOrder = async(orderId,userId)=>{
         "CANCELLED"
     );
 };
+
+exports.deleteOrder = async (orderId) => {
+    const order = await orderRepo.findById(orderId);
+    if (!order) {
+        const error = new Error("Order not found");
+        error.statusCode = 404;
+        throw error;
+    }
+    return await orderRepo.deleteOrder(orderId);
+};

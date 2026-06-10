@@ -160,4 +160,27 @@ exports.cancelOrder=async(req,res)=>{
             }
         });
     }
-}
+};
+
+exports.deleteOrder = async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+        await orderService.deleteOrder(orderId);
+        res.status(200).json({
+            success: true,
+            message: "Order deleted successfully",
+            data: { orderId },
+            error: {}
+        });
+    } catch (error) {
+        res.status(error.statusCode || 500).json({
+            success: false,
+            message: error.message,
+            data: {},
+            error: {
+                "statusCode": error.statusCode || 500,
+                "isOperational": error.isOperational || false
+            }
+        });
+    }
+};

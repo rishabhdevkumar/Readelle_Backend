@@ -30,3 +30,7 @@ exports.findAllOrders = async () => {
         .sort({ createdAt: -1 })
         .lean();
 };
+
+exports.deleteOrder = async (orderId) => {
+    return await Order.findByIdAndDelete(orderId);
+};
