@@ -3,6 +3,12 @@ const cartRepository = require("../repositories/cart.repository");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const createError = (message, statusCode) => {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    return error;
+};
+
 exports.registerUser = async (data) => {
     const existingUser = await userRepository.findUserByEmail(data.email);
 
@@ -23,19 +29,23 @@ exports.loginUser = async (data) => {
     const { email, password } = data;
 
     if (!email || !password) {
-        throw new Error("email and password required");
+        throw createError("Email and password are required", 400);
     }
 
     const user = await userRepository.findUserByEmail(email);
 
     if (!user) {
-        throw new Error("Invalid credentials");
+        throw createError("Invalid email or password", 401);
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-        throw new Error("Invalid credentials");
+        throw createError("Invalid email or password", 401);
+    }
+
+    if (!process.env.SECRET_TOKEN) {
+        throw createError("Server authentication is not configured", 500);
     }
 
     const token = jwt.sign(

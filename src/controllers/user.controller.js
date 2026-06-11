@@ -36,6 +36,14 @@ exports.loginUser = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Login successfully",
+            token: data.token,
+            user: {
+                id: data.user._id,
+                name: data.user.name,
+                email: data.user.email,
+                role: data.user.role,
+                status: data.user.status,
+            },
             data: {
                 id: data.user._id,
                 name: data.user.name,
@@ -49,7 +57,7 @@ exports.loginUser = async (req, res) => {
     } catch (error) {
         res.status(error.statusCode || 500).json({
             success: false,
-            message: "Invalid email or password",
+            message: error.message || "Invalid email or password",
             data: {},
             error: {
                 statusCode: error.statusCode || 409,

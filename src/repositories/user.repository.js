@@ -5,7 +5,7 @@ exports.createUser = async (data) => {
 };
 
 exports.findUserByEmail = async (email) => {
-    return await User.findOne({ email });
+    return await User.findOne({ email }).select("+password");
 };
 
 exports.getMe = async (userId) => {

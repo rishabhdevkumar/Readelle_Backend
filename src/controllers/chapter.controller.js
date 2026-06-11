@@ -12,7 +12,7 @@ const addChapter = async (req, res) => {
         const result = await addChapterService(req.body);
 
         return res.status(201).json({
-            success: true,
+            success: true, 
             message: "Chapter added successfully",
             data: result,
             error: {},
