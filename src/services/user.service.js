@@ -32,6 +32,12 @@ exports.loginUser = async (data) => {
         throw new Error("Invalid credentials");
     }
 
+    if (user.status && user.status !== "Active") {
+        const err = new Error("Your account has been deactivated or suspended");
+        err.statusCode = 403;
+        throw err;
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {

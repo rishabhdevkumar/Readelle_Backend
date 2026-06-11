@@ -49,7 +49,7 @@ exports.loginUser = async (req, res) => {
     } catch (error) {
         res.status(error.statusCode || 500).json({
             success: false,
-            message: "Invalid email or password",
+            message: error.statusCode ? error.message : "Invalid email or password",
             data: {},
             error: {
                 statusCode: error.statusCode || 409,
