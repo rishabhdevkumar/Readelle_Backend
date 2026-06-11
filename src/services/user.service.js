@@ -21,7 +21,7 @@ exports.registerUser = async (data) => {
 
     const user = await userRepository.createUser(data);
     const cart = await cartRepository.createCart(user._id);
-    
+
     return user;
 };
 
@@ -35,7 +35,7 @@ exports.loginUser = async (data) => {
     const user = await userRepository.findUserByEmail(email);
 
     if (!user) {
-        throw createError("Invalid email or password", 401);
+        throw createError("Email does not exist", 401);
     }
 
     if (user.status && user.status !== "Active") {
@@ -47,7 +47,7 @@ exports.loginUser = async (data) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-        throw createError("Invalid email or password", 401);
+        throw createError("Wrong password entered", 401);
     }
 
     if (!process.env.SECRET_TOKEN) {
@@ -73,7 +73,7 @@ exports.loginUser = async (data) => {
 
 exports.getMe = async (userId) => {
     const user = await userRepository.getMe(userId);
-    
+
     if (!user) {
         throw new Error("user not found");
     }
