@@ -38,6 +38,12 @@ exports.loginUser = async (data) => {
         throw createError("Invalid email or password", 401);
     }
 
+    if (user.status && user.status !== "Active") {
+        const err = new Error("Your account has been deactivated or suspended");
+        err.statusCode = 403;
+        throw err;
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
