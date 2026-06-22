@@ -30,6 +30,18 @@ const notesSchema = new mongoose.Schema({
         trim: true,
         minlength: [1, 'Note text must be at least 1 character'],
         maxlength: [1000, 'Note text cannot exceed 1000 characters']
+    },
+
+    selectedText: {
+        type: String,
+        trim: true,
+        default: ""
+    },
+
+    color: {
+        type: String,
+        trim: true,
+        default: ""
     }
 }, {
     timestamps: true
