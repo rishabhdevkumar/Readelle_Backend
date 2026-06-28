@@ -12,16 +12,22 @@ const deleteFromCloudinary = require("../utils/deleteFromCloudinary");
 const resolveBookMedia = async (data = {}, files = {}) => {
     const resolvedData = { ...data };
 
-    if (files.cover_image?.[0]) {
-        const uploadedCover = await uploadToCloudinary(files.cover_image[0], "books/covers", "image");
+    const coverFile = files?.cover_image?.[0] || files?.coverUrl?.[0] || files?.cover_url?.[0];
+    if (coverFile) {
+        const uploadedCover = await uploadToCloudinary(coverFile, "books/covers", "image");
         resolvedData.cover_image = uploadedCover.secure_url;
         resolvedData.cover_image_public_id = uploadedCover.public_id;
+    } else if (data.coverUrl || data.cover_url) {
+        resolvedData.cover_image = data.coverUrl || data.cover_url;
     }
 
-    if (files.file_url?.[0]) {
-        const uploadedFile = await uploadToCloudinary(files.file_url[0], "books/files", "raw");
+    const bookFile = files?.file_url?.[0] || files?.bookUrl?.[0] || files?.fileUrl?.[0] || files?.book_url?.[0];
+    if (bookFile) {
+        const uploadedFile = await uploadToCloudinary(bookFile, "books/files", "raw");
         resolvedData.file_url = uploadedFile.secure_url;
         resolvedData.file_public_id = uploadedFile.public_id;
+    } else if (data.bookUrl || data.book_url || data.fileUrl) {
+        resolvedData.file_url = data.bookUrl || data.book_url || data.fileUrl;
     }
 
     return resolvedData;
@@ -68,11 +74,13 @@ const updateBookService = async (bookId, data, files) => {
 
     const oldAssetsToDelete = [];
 
-    if (files?.cover_image?.[0] && existingBook.cover_image_public_id) {
+    const hasNewCover = files?.cover_image?.[0] || files?.coverUrl?.[0] || files?.cover_url?.[0];
+    if (hasNewCover && existingBook.cover_image_public_id) {
         oldAssetsToDelete.push(deleteFromCloudinary(existingBook.cover_image_public_id, "image"));
     }
 
-    if (files?.file_url?.[0] && existingBook.file_public_id) {
+    const hasNewFile = files?.file_url?.[0] || files?.bookUrl?.[0] || files?.fileUrl?.[0] || files?.book_url?.[0];
+    if (hasNewFile && existingBook.file_public_id) {
         oldAssetsToDelete.push(deleteFromCloudinary(existingBook.file_public_id, "raw"));
     }
 

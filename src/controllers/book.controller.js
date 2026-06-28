@@ -36,6 +36,7 @@ const createBook = async (req, res) => {
             });
         }
 
+        console.error("❌ createBook 500 Error:", error.name, "|", error.message, "\nStack:", error.stack);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error",
